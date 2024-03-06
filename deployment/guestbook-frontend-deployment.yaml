@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: guestbook-frontend
+  namespace: guestbook
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: guestbook-frontend
+  template:
+     metadata:
+       labels:
+         app: guestbook-frontend
+     spec:
+       containers:
+       - name: guestbook-frontend
+         image: image-registry.openshift-image-registry.svc:5000/guestbook/guestbook-frontend:1.0.6
+         env:
+         - name: CONFIG_FILE 
+           value: /config/config.json
+         ports:
+         - containerPort: 8080
+         volumeMounts:
+         - name: config-volume
+           mountPath: /config
+       volumes:
+       - name: config-volume
+         configMap:
+           name: frontend-config

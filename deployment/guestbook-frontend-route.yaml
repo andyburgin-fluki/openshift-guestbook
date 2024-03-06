@@ -1,0 +1,16 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: guestbook-frontend-route
+  namespace: guestbook
+spec:
+  host: gbroute.apps.xxxxx.clusters.xxxxxxxxxx.tld
+  port:
+    targetPort: http
+  tls:
+    termination: edge
+  to:
+    kind: Service
+    name: guestbook-frontend
+    weight: 100
+  wildcardPolicy: None

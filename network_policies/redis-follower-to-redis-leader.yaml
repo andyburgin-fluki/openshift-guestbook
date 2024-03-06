@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: redis-follower-to-redis-leader
+  namespace: guestbook
+spec:
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          app: redis-leader
+  - ports:
+    - protocol: TCP
+      port: 6379
+  podSelector:
+    matchLabels:
+      app: redis-follower
+  policyTypes:
+  - Egress

@@ -1,0 +1,16 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: redis-follower
+  namespace: guestbook
+  labels:
+    team: teamName
+    prometheus: "yes"
+spec:
+  selector:
+    matchLabels:
+      app: redis-follower
+  endpoints:
+  - port: metrics-follow
+
+

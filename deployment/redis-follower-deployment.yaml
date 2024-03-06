@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-follower
+  namespace: guestbook
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: redis-follower
+  template:
+     metadata:
+       labels:
+         app: redis-follower
+     spec:
+       containers:
+       - name: redis-follower
+         image: redis:5.0.14
+         command: ["redis-server", "--replicaof", "redis-leader", "6379"]
+         ports:
+         - containerPort: 6379
+         volumeMounts:
+         - name: data
+           mountPath: /data
+       - name: redis-exporter-follower
+         image: oliver006/redis_exporter:latest
+         ports:
+         - name: metrics-follow
+           containerPort: 9121
+       volumes:
+       - name: data
+         emptyDir:
+           sizeLimit: 500Mi

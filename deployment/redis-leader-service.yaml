@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: redis-leader
+  name: redis-leader
+  namespace: guestbook
+spec:
+  selector:
+    app: redis-leader
+  ports:
+  - name: http
+    protocol: TCP
+    port: 6379
+    targetPort: 6379
+  - name: metrics
+    protocol: TCP
+    port: 9121
+    targetPort: 9121

@@ -1,0 +1,13 @@
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: route-to-redis-leader-metrics
+  namespace: guestbook
+spec:
+  podSelector:
+    matchLabels:
+      app: redis-leader
+  ingress:
+  - ports:
+    - protocol: TCP
+      port: 9121

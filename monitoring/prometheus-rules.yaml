@@ -1,0 +1,41 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    role: alert-rules
+  name: redis-rules
+  namespace: guestbook
+spec:
+  groups:
+  - name: redis-leader-rule-example
+    rules:
+    - alert: redis-leader-absent
+      annotations: 
+        description: Redis leader instance is absent
+      expr: 'absent(up{namespace="guestbook", job="redis-leader"}) == 1'
+      for: 1m
+      labels:
+        alertname: RedisLeaderAbsent
+        severity: warning
+        team: teamName
+    - alert: redis-follower-disconnected
+      annotations: 
+        description: Redis follower is disconnected from leader
+      expr: 'redis_connected_slaves{namespace="guestbook", service="redis-leader"}<3'
+      for: 1m
+      labels:
+        alertname: RedisFollowerDisconnected
+        severity: warning
+        team: teamName
+  - name: redis-follower-rule-example
+    rules:
+    - alert: redis-follower-absent
+      annotations: 
+        description: Redis follower instance is absent
+      expr: 'absent(up{namespace="guestbook", job="redis-follower"}) == 1'
+      for: 1m
+      labels:
+        alertname: RedisFollowerAbsent
+        severity: warning
+        team: teamName
+    

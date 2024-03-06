@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-leader
+  namespace: guestbook
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-leader
+  template:
+     metadata:
+       labels:
+         app: redis-leader
+     spec:
+       containers:
+        - name: redis-leader
+          image: redis:5.0.14
+          ports: 
+          - containerPort: 6379
+          volumeMounts:
+          - name: data
+            mountPath: /data
+        # required to supply metrics
+        - name: redis-exporter
+          image: oliver006/redis_exporter:latest
+          ports:
+          - name: metrics
+            containerPort: 9121
+       volumes:
+       - name: data
+         emptyDir:
+           sizeLimit: 500Mi

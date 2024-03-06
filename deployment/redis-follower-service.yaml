@@ -1,0 +1,21 @@
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: redis-follower
+  name: redis-follower
+  namespace: guestbook
+spec:
+  type: ClusterIP
+  selector:
+    app: redis-follower
+  ports:
+  - name: http
+    protocol: TCP
+    port: 6379
+    targetPort: 6379
+  - name: metrics-follow
+    protocol: TCP
+    port: 9121
+    targetPort: 9121
