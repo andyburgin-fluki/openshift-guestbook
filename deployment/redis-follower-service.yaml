@@ -5,7 +5,7 @@ metadata:
   labels:
     app: redis-follower
   name: redis-follower
-  namespace: guestbook
+  namespace: guestbook-reddis
 spec:
   type: ClusterIP
   selector:

@@ -4,7 +4,7 @@ metadata:
   labels:
     app: redis-leader
   name: redis-leader
-  namespace: guestbook
+  namespace: guestbook-redis
 spec:
   selector:
     app: redis-leader

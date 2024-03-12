@@ -15,5 +15,10 @@ spec:
   podSelector:
     matchLabels:
       app: redis-follower
+  namespaceSelector:
+    matchExpressions:
+    - key: namespace
+      operator: In
+      values: ["guestbook-redis"]
   policyTypes:
   - Egress

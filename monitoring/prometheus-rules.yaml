@@ -4,7 +4,7 @@ metadata:
   labels:
     role: alert-rules
   name: redis-rules
-  namespace: guestbook
+  namespace: guestbook-redis
 spec:
   groups:
   - name: redis-leader-rule-example
@@ -12,7 +12,7 @@ spec:
     - alert: redis-leader-absent
       annotations: 
         description: Redis leader instance is absent
-      expr: 'absent(up{namespace="guestbook", job="redis-leader"}) == 1'
+      expr: 'absent(up{namespace="guestbook-redis", job="redis-leader"}) == 1'
       for: 1m
       labels:
         alertname: RedisLeaderAbsent
@@ -21,7 +21,7 @@ spec:
     - alert: redis-follower-disconnected
       annotations: 
         description: Redis follower is disconnected from leader
-      expr: 'redis_connected_slaves{namespace="guestbook", service="redis-leader"}<3'
+      expr: 'redis_connected_slaves{namespace="guestbook-redis", service="redis-leader"}<3'
       for: 1m
       labels:
         alertname: RedisFollowerDisconnected
@@ -32,7 +32,7 @@ spec:
     - alert: redis-follower-absent
       annotations: 
         description: Redis follower instance is absent
-      expr: 'absent(up{namespace="guestbook", job="redis-follower"}) == 1'
+      expr: 'absent(up{namespace="guestbook-redis", job="redis-follower"}) == 1'
       for: 1m
       labels:
         alertname: RedisFollowerAbsent

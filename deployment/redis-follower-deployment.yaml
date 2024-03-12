@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis-follower
-  namespace: guestbook
+  namespace: guestbook-redis
 spec:
   replicas: 3
   selector:

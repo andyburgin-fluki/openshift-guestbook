@@ -2,18 +2,23 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: guestbook-frontend-to-redis-leader
-  namespace: guestbook
+  namespace: guestbook-redis
 spec:
   ingress:
   - from:
     - podSelector:
         matchLabels:
           app: guestbook-frontend
+      namespaceSelector:
+        matchExpressions:
+        - key: namespace
+          operator: In
+          values: ["guestbook"]
+  policyTypes:
   - ports:
     - protocol: TCP
       port: 6379
   podSelector:
     matchLabels:
       app: redis-leader
-  policyTypes:
   - Ingress

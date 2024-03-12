@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: redis-follower-to-redis-leader
-  namespace: guestbook
+  namespace: guestbook-redis
 spec:
   egress:
   - to:
