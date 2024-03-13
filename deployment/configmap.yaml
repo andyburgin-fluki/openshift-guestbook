@@ -5,4 +5,4 @@ metadata:
   namespace: guestbook
 data:
   config.json: |
-    {"redis_leader":"redis-leader", "redis_follower":"redis-follower"}
+    {"redis_leader":"redis-leader.guestbook-redis.svc.cluster.local", "redis_follower":"redis-follower.guestbook-redis.svc.cluster.local"}
